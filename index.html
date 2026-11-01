@@ -18,6 +18,7 @@ body,#stage{background:#1F3D2E}
 body.pill #full,body.full #pill{display:none}
 .top{background:#1F3D2E;border-bottom:3px solid #B8963E;padding:12px;display:flex;gap:10px;align-items:center}
 .body{flex:1;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:8px}
+.body .pane{gap:8px}
 .grid{display:flex;gap:6px}
 .tile{flex:1;background:#FFFDF7;border:1.5px solid #E2D6BA;border-radius:12px;padding:6px 2px;text-align:center}
 .big{font-weight:800;font-size:18px;color:#1F3D2E}
@@ -77,18 +78,14 @@ body.pill .toast .tt{font-size:20px}body.pill .toast .ts{font-size:13px}body.pil
       </div>
       <div class="card"><p class="lbl">Recently earned</p><div id="recent"><p class="note">Nothing yet. Check in to a class to start earning!</p></div></div>
     </div>
-    <div class="pane" id="paneCampus">
+    <div class="pane on" id="paneCampus">
       <div class="card" style="background:#1F3D2E;border-color:#B8963E;display:flex;gap:10px;align-items:center"><svg style="width:36px;height:36px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M48 14 Q64 2 80 14" fill="none" stroke-width="6"/><rect x="40" y="16" width="48" height="12" rx="3" fill="#5A4632"/><path d="M36 28 L92 28 L86 100 L42 100 Z" fill="#F5C860"/><path d="M64 52 Q54 68 64 82 Q74 68 64 52 Z" fill="#FFF3C4" stroke="#E08A1E" stroke-width="3"/><path d="M50 28 L52 100 M78 28 L76 100" fill="none" stroke-width="4"/><rect x="32" y="100" width="64" height="16" rx="3" fill="#5A4632"/></g></svg>
         <div><p class="lbl" style="color:#D9BE76;margin:0">You are in</p><p class="serif" id="loc" style="font-size:20px;color:#F3EBD8">Campus</p></div></div>
       <div class="card"><p class="lbl">Roleplay post XP</p>
         <div class="tiers"><div class="tier">0<span>under 100</span></div><div class="tier">+2<span>100–299</span></div><div class="tier">+4<span>300–699</span></div><div class="tier">+6<span>700+</span></div></div>
-        <p class="note" style="margin-top:6px">Characters per post, in campus roleplay spaces. Someone with a HUD must be nearby; one scored post every 90 seconds; (( OOC )) doesn't count.</p></div>
+        <p class="note" style="margin-top:6px">Per post, in campus roleplay spaces, with another HUD nearby. One every 90 seconds; (( OOC )) doesn't count.</p></div>
       <div class="card" style="display:flex;gap:8px;align-items:center"><svg style="width:24px;height:24px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M64 8 Q76 14 86 12 Q94 22 104 26 Q106 38 116 46 Q112 58 118 68 Q110 78 112 90 Q100 96 96 108 Q84 108 74 118 Q64 112 52 118 Q44 108 32 108 Q28 96 16 90 Q18 78 10 68 Q16 58 12 46 Q22 38 24 26 Q34 22 42 12 Q52 14 64 8 Z" fill="#8E2F2F"/><circle cx="64" cy="64" r="34" fill="none" stroke="#5E1C1C" stroke-width="4"/><text x="64" y="80" text-anchor="middle" font-family="DejaVu Serif" font-weight="bold" font-size="44" fill="#5E1C1C" stroke="none">B</text></g></svg><p class="note">Your HUD only measures how long a post is. It never saves or sends what anyone says.</p></div>
     </div>
-  </div>
-  <div class="tabs">
-    <button type="button" class="on" id="tabMe" onclick="tab('me')"><svg style="width:22px;height:22px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg>Me</button>
-    <button type="button" id="tabCampus" onclick="tab('campus')"><svg style="width:22px;height:22px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M48 14 Q64 2 80 14" fill="none" stroke-width="6"/><rect x="40" y="16" width="48" height="12" rx="3" fill="#5A4632"/><path d="M36 28 L92 28 L86 100 L42 100 Z" fill="#F5C860"/><path d="M64 52 Q54 68 64 82 Q74 68 64 52 Z" fill="#FFF3C4" stroke="#E08A1E" stroke-width="3"/><path d="M50 28 L52 100 M78 28 L76 100" fill="none" stroke-width="4"/><rect x="32" y="100" width="64" height="16" rx="3" fill="#5A4632"/></g></svg>Campus</button>
   </div>
 </div>
 
@@ -118,14 +115,6 @@ window.CFG = { uuid: q.get('uuid') || '', t: q.get('t') || '', view: q.get('view
   fit();
   window.addEventListener('resize', fit);
   if (C.loc) $('loc').textContent = C.loc;
-
-  window.tab = function (n) {
-    $('paneMe').className = 'pane' + (n === 'me' ? ' on' : '');
-    $('paneCampus').className = 'pane' + (n === 'campus' ? ' on' : '');
-    $('tabMe').className = n === 'me' ? 'on' : '';
-    $('tabCampus').className = n === 'campus' ? 'on' : '';
-  };
-  if (C.tab === 'campus') window.tab('campus');
 
   function fmt(n) { return String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   var last = null, hideTimer = null;
