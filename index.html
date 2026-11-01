@@ -11,10 +11,10 @@ p{margin:0}
 .bar{height:10px;border-radius:10px;background:#E9DFC8;overflow:hidden}
 .fill{height:10px;border-radius:10px;background:#B8963E;width:0;transition:width .6s}
 .face{border-radius:50%;background:#FAF6EC;border:2px solid #D9BE76;display:flex;align-items:center;justify-content:center;flex:none}
-#stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
-body.pill{background:#1F3D2E}
-#pill{height:100%;display:flex;align-items:center;gap:12px;padding:0 14px;background:#1F3D2E}
-#full{height:100%;display:flex;flex-direction:column}
+#stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;padding:4px}
+body,#stage{background:#10231A}
+#pill{height:100%;display:flex;align-items:center;gap:12px;padding:0 16px 0 10px;background:#1F3D2E;border:2.5px solid #B8963E;border-radius:46px;box-shadow:inset 0 0 0 1.5px rgba(217,190,118,.35)}
+#full{height:100%;display:flex;flex-direction:column;border:2.5px solid #B8963E;border-radius:18px;overflow:hidden;background:#FAF6EC}
 body.pill #full,body.full #pill{display:none}
 .top{background:#1F3D2E;border-bottom:3px solid #B8963E;padding:12px;display:flex;gap:10px;align-items:center}
 .body{flex:1;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:8px}
@@ -34,7 +34,7 @@ body.pill #full,body.full #pill{display:none}
 .tier{flex:1;background:#F1E8D4;border-radius:8px;padding:5px 2px;text-align:center;font-weight:800;font-size:14px;color:#1F3D2E}
 .tier span{display:block;font-weight:700;font-size:9px;color:#5E5240}
 .note{font-weight:600;font-size:11px;color:#5E5240;line-height:1.35}
-.toast{position:fixed;left:8px;right:8px;top:8px;z-index:9;background:#FAF6EC;border:2px solid #B8963E;border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;transform:translateY(-140%);transition:transform .4s ease}
+.toast{position:fixed;left:12px;right:12px;top:12px;z-index:9;background:#FAF6EC;border:2px solid #B8963E;border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;transform:translateY(-140%);transition:transform .4s ease}
 .toast.show{transform:translateY(0)}
 .toast.gold{background:#1F3D2E;border-color:#D9BE76}
 .toast .tt{font-weight:800;font-size:16px;color:#1F3D2E}
@@ -42,14 +42,14 @@ body.pill #full,body.full #pill{display:none}
 .toast.gold .tt{color:#F3D98A;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px}
 .toast.gold .ts{color:#E7DFC9}
 .toast svg{width:44px;height:44px;flex:none}
-body.pill .toast{top:6px;bottom:6px;left:6px;right:6px}
+body.pill .toast{top:4px;bottom:4px;left:4px;right:4px;border-radius:46px;padding:6px 20px 6px 10px}
 body.pill .toast .tt{font-size:20px}body.pill .toast .ts{font-size:13px}body.pill .toast svg{width:56px;height:56px}
 .off{opacity:.6}
 </style></head>
 <body class="pill">
 <div id="stage">
 <div id="pill">
-  <div class="face" style="width:60px;height:60px"><svg style="width:50px;height:50px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
+  <div class="face" style="width:58px;height:58px"><svg style="width:50px;height:50px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
   <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
     <p class="serif" id="pName" style="font-size:20px;color:#F3EBD8;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Briarcrest</p>
     <p id="pRank" style="font-weight:800;font-size:12px;color:#D9BE76">Loading…</p>
@@ -111,7 +111,7 @@ window.CFG = { uuid: q.get('uuid') || '', t: q.get('t') || '', view: q.get('view
     // design sizes match the screen shapes: pill 4:1 (512 x 128), panel 1:2 (512 x 1024)
     var w = (C.view === 'full' ? 320 : 400) / z, h = (C.view === 'full' ? 640 : 100) / z;
     var st = $('stage');
-    st.style.width = w + 'px'; st.style.height = h + 'px';
+    st.style.width = w + 'px'; st.style.height = h + 'px'; st.style.boxSizing = 'border-box';
     var k = Math.min(window.innerWidth / w, window.innerHeight / h) || 1;
     st.style.transform = 'translate(' + (window.innerWidth - w * k) / 2 + 'px,' + (window.innerHeight - h * k) / 2 + 'px) scale(' + k + ')';
   }
