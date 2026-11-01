@@ -11,10 +11,10 @@ p{margin:0}
 .bar{height:10px;border-radius:10px;background:#E9DFC8;overflow:hidden}
 .fill{height:10px;border-radius:10px;background:#B8963E;width:0;transition:width .6s}
 .face{border-radius:50%;background:#FAF6EC;border:2px solid #D9BE76;display:flex;align-items:center;justify-content:center;flex:none}
-#stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;padding:4px}
-body,#stage{background:#10231A}
-#pill{height:100%;display:flex;align-items:center;gap:12px;padding:0 16px 0 10px;background:#1F3D2E;border:2.5px solid #B8963E;border-radius:46px;box-shadow:inset 0 0 0 1.5px rgba(217,190,118,.35)}
-#full{height:100%;display:flex;flex-direction:column;border:2.5px solid #B8963E;border-radius:18px;overflow:hidden;background:#FAF6EC}
+#stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;padding:0}
+body,#stage{background:#1F3D2E}
+#pill{height:100%;display:flex;align-items:center;gap:12px;padding:0 16px 0 10px;background:#1F3D2E;border:3px solid #B8963E;border-radius:50px;box-shadow:inset 0 0 0 1.5px rgba(217,190,118,.35)}
+#full{height:100%;display:flex;flex-direction:column;border:3px solid #B8963E;border-radius:18px;overflow:hidden;background:#FAF6EC}
 body.pill #full,body.full #pill{display:none}
 .top{background:#1F3D2E;border-bottom:3px solid #B8963E;padding:12px;display:flex;gap:10px;align-items:center}
 .body{flex:1;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:8px}
@@ -42,7 +42,7 @@ body.pill #full,body.full #pill{display:none}
 .toast.gold .tt{color:#F3D98A;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px}
 .toast.gold .ts{color:#E7DFC9}
 .toast svg{width:44px;height:44px;flex:none}
-body.pill .toast{top:4px;bottom:4px;left:4px;right:4px;border-radius:46px;padding:6px 20px 6px 10px}
+body.pill .toast{top:0;bottom:0;left:0;right:0;border-radius:50px;border-width:3px;padding:6px 20px 6px 10px}
 body.pill .toast .tt{font-size:20px}body.pill .toast .ts{font-size:13px}body.pill .toast svg{width:56px;height:56px}
 .off{opacity:.6}
 </style></head>
