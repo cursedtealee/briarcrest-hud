@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Briarcrest HUD</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@600;700;800&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#FAF6EC;font-family:Nunito,'Trebuchet MS',sans-serif;color:#2A2118}
+p{margin:0}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700}
+.bar{height:10px;border-radius:10px;background:#E9DFC8;overflow:hidden}
+.fill{height:10px;border-radius:10px;background:#B8963E;width:0;transition:width .6s}
+.face{border-radius:50%;background:#FAF6EC;border:2px solid #D9BE76;display:flex;align-items:center;justify-content:center;flex:none}
+#stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;padding:4px}
+body,#stage{background:#10231A}
+#pill{height:100%;display:flex;align-items:center;gap:12px;padding:0 16px 0 10px;background:#1F3D2E;border:2.5px solid #B8963E;border-radius:46px;box-shadow:inset 0 0 0 1.5px rgba(217,190,118,.35)}
+#full{height:100%;display:flex;flex-direction:column;border:2.5px solid #B8963E;border-radius:18px;overflow:hidden;background:#FAF6EC}
+body.pill #full,body.full #pill{display:none}
+.top{background:#1F3D2E;border-bottom:3px solid #B8963E;padding:12px;display:flex;gap:10px;align-items:center}
+.body{flex:1;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:8px}
+.grid{display:flex;gap:6px}
+.tile{flex:1;background:#FFFDF7;border:1.5px solid #E2D6BA;border-radius:12px;padding:6px 2px;text-align:center}
+.big{font-weight:800;font-size:18px;color:#1F3D2E}
+.sm{font-weight:700;font-size:11px;color:#5E5240}
+.card{background:#FFFDF7;border:1.5px solid #E2D6BA;border-radius:14px;padding:10px}
+.lbl{font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B5E4A;margin-bottom:4px}
+.row{display:flex;justify-content:space-between;gap:6px;padding:5px 0;border-top:1px solid #EFE6D2;font-weight:700;font-size:13px}
+.row b{color:#8A6A1E}
+.tabs{display:flex;gap:6px;padding:6px;background:#1F3D2E;border-top:3px solid #B8963E}
+.tabs button{flex:1;height:44px;border:0;border-radius:10px;background:transparent;color:#E7DFC9;font:800 12px Nunito,sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+.tabs button.on{background:#FAF6EC;color:#1F3D2E}
+.pane{display:none;flex-direction:column;gap:8px}.pane.on{display:flex}
+.tiers{display:flex;gap:4px}
+.tier{flex:1;background:#F1E8D4;border-radius:8px;padding:5px 2px;text-align:center;font-weight:800;font-size:14px;color:#1F3D2E}
+.tier span{display:block;font-weight:700;font-size:9px;color:#5E5240}
+.note{font-weight:600;font-size:11px;color:#5E5240;line-height:1.35}
+.toast{position:fixed;left:12px;right:12px;top:12px;z-index:9;background:#FAF6EC;border:2px solid #B8963E;border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;transform:translateY(-140%);transition:transform .4s ease}
+.toast.show{transform:translateY(0)}
+.toast.gold{background:#1F3D2E;border-color:#D9BE76}
+.toast .tt{font-weight:800;font-size:16px;color:#1F3D2E}
+.toast .ts{font-weight:700;font-size:12px;color:#5E5240}
+.toast.gold .tt{color:#F3D98A;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px}
+.toast.gold .ts{color:#E7DFC9}
+.toast svg{width:44px;height:44px;flex:none}
+body.pill .toast{top:4px;bottom:4px;left:4px;right:4px;border-radius:46px;padding:6px 20px 6px 10px}
+body.pill .toast .tt{font-size:20px}body.pill .toast .ts{font-size:13px}body.pill .toast svg{width:56px;height:56px}
+.off{opacity:.6}
+</style></head>
+<body class="pill">
+<div id="stage">
+<div id="pill">
+  <div class="face" style="width:58px;height:58px"><svg style="width:50px;height:50px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+    <p class="serif" id="pName" style="font-size:20px;color:#F3EBD8;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Briarcrest</p>
+    <p id="pRank" style="font-weight:800;font-size:12px;color:#D9BE76">Loading…</p>
+    <div class="bar"><div class="fill" id="pFill"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px;font-weight:800;font-size:20px;color:#F3D98A"><svg style="width:30px;height:30px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><circle cx="64" cy="64" r="54" fill="#D4A82A"/><circle cx="64" cy="64" r="42" fill="none" stroke="#A67C14" stroke-width="4"/><text x="64" y="80" text-anchor="middle" font-family="DejaVu Serif" font-weight="bold" font-size="44" fill="#1F4233" stroke="none" letter-spacing="-3">BC</text><path d="M30 40 Q36 30 46 26" fill="none" stroke="#F6DE8A" stroke-width="5"/></g></svg><span id="pCrest">–</span></div>
+</div>
+
+<div id="full">
+  <div class="top">
+    <div class="face" style="width:54px;height:54px"><svg style="width:46px;height:46px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+      <p class="serif" id="fName" style="font-size:21px;color:#F3EBD8;line-height:1">Briarcrest</p>
+      <p id="fRank" style="font-weight:800;font-size:12px;color:#D9BE76">Loading…</p>
+      <div class="bar"><div class="fill" id="fFill"></div></div>
+      <p id="fNext" style="font-weight:700;font-size:11px;color:#E7DFC9"></p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="pane on" id="paneMe">
+      <div class="grid">
+        <div class="tile"><svg style="width:28px;height:28px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><circle cx="64" cy="64" r="54" fill="#D4A82A"/><circle cx="64" cy="64" r="42" fill="none" stroke="#A67C14" stroke-width="4"/><text x="64" y="80" text-anchor="middle" font-family="DejaVu Serif" font-weight="bold" font-size="44" fill="#1F4233" stroke="none" letter-spacing="-3">BC</text><path d="M30 40 Q36 30 46 26" fill="none" stroke="#F6DE8A" stroke-width="5"/></g></svg><p class="big" id="tCrest">–</p><p class="sm">Crests</p></div>
+        <div class="tile"><svg style="width:28px;height:28px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="64" cy="108" rx="54" ry="11" fill="#FBF3E4"/><path d="M22 54 L106 54 Q104 102 64 104 Q24 102 22 54 Z" fill="#FBF3E4"/><path d="M24 66 L104 66" fill="none" stroke="#2F5D47" stroke-width="7"/><path d="M105 62 Q124 62 120 80 Q117 92 98 90" fill="none" stroke-width="6"/><path d="M48 44 Q42 34 48 22" fill="none" stroke="#9B8E7E" stroke-width="5"/><path d="M66 44 Q60 32 66 16" fill="none" stroke="#9B8E7E" stroke-width="5"/><path d="M84 44 Q78 34 84 22" fill="none" stroke="#9B8E7E" stroke-width="5"/></g></svg><p class="big"><span id="tRp">–</span><span id="tCap" style="font-size:11px;color:#6B5E4A"></span></p><p class="sm">RP XP today</p></div>
+        <div class="tile"><svg style="width:28px;height:28px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><circle cx="64" cy="64" r="52" fill="#2F5D47"/><path d="M38 66 L56 84 L92 44" fill="none" stroke="#FBF3E4" stroke-width="13"/></g></svg><p class="big" id="tCls">–</p><p class="sm">Classes</p></div>
+      </div>
+      <div class="card"><p class="lbl">Recently earned</p><div id="recent"><p class="note">Nothing yet. Check in to a class to start earning!</p></div></div>
+    </div>
+    <div class="pane" id="paneCampus">
+      <div class="card" style="background:#1F3D2E;border-color:#B8963E;display:flex;gap:10px;align-items:center"><svg style="width:36px;height:36px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M48 14 Q64 2 80 14" fill="none" stroke-width="6"/><rect x="40" y="16" width="48" height="12" rx="3" fill="#5A4632"/><path d="M36 28 L92 28 L86 100 L42 100 Z" fill="#F5C860"/><path d="M64 52 Q54 68 64 82 Q74 68 64 52 Z" fill="#FFF3C4" stroke="#E08A1E" stroke-width="3"/><path d="M50 28 L52 100 M78 28 L76 100" fill="none" stroke-width="4"/><rect x="32" y="100" width="64" height="16" rx="3" fill="#5A4632"/></g></svg>
+        <div><p class="lbl" style="color:#D9BE76;margin:0">You are in</p><p class="serif" id="loc" style="font-size:20px;color:#F3EBD8">Campus</p></div></div>
+      <div class="card"><p class="lbl">Roleplay post XP</p>
+        <div class="tiers"><div class="tier">0<span>under 100</span></div><div class="tier">+2<span>100–299</span></div><div class="tier">+4<span>300–699</span></div><div class="tier">+6<span>700+</span></div></div>
+        <p class="note" style="margin-top:6px">Characters per post, in campus roleplay spaces. Someone with a HUD must be nearby; one scored post every 90 seconds; (( OOC )) doesn't count.</p></div>
+      <div class="card" style="display:flex;gap:8px;align-items:center"><svg style="width:24px;height:24px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M64 8 Q76 14 86 12 Q94 22 104 26 Q106 38 116 46 Q112 58 118 68 Q110 78 112 90 Q100 96 96 108 Q84 108 74 118 Q64 112 52 118 Q44 108 32 108 Q28 96 16 90 Q18 78 10 68 Q16 58 12 46 Q22 38 24 26 Q34 22 42 12 Q52 14 64 8 Z" fill="#8E2F2F"/><circle cx="64" cy="64" r="34" fill="none" stroke="#5E1C1C" stroke-width="4"/><text x="64" y="80" text-anchor="middle" font-family="DejaVu Serif" font-weight="bold" font-size="44" fill="#5E1C1C" stroke="none">B</text></g></svg><p class="note">Your HUD only measures how long a post is. It never saves or sends what anyone says.</p></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button type="button" class="on" id="tabMe" onclick="tab('me')"><svg style="width:22px;height:22px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg>Me</button>
+    <button type="button" id="tabCampus" onclick="tab('campus')"><svg style="width:22px;height:22px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M48 14 Q64 2 80 14" fill="none" stroke-width="6"/><rect x="40" y="16" width="48" height="12" rx="3" fill="#5A4632"/><path d="M36 28 L92 28 L86 100 L42 100 Z" fill="#F5C860"/><path d="M64 52 Q54 68 64 82 Q74 68 64 52 Z" fill="#FFF3C4" stroke="#E08A1E" stroke-width="3"/><path d="M50 28 L52 100 M78 28 L76 100" fill="none" stroke-width="4"/><rect x="32" y="100" width="64" height="16" rx="3" fill="#5A4632"/></g></svg>Campus</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="tIcon"></span><div><p class="tt" id="tTitle"></p><p class="ts" id="tSub"></p></div></div>
+</div>
+<div id="iconStar" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M64 10 L78 46 L116 48 L86 72 L96 110 L64 88 L32 110 L42 72 L12 48 L50 46 Z" fill="#D4A82A"/><path d="M64 30 L70 50" fill="none" stroke="#F6DE8A" stroke-width="5"/><path d="M108 10 L112 20 L122 24 L112 28 L108 38 L104 28 L94 24 L104 20 Z" fill="#F6DE8A" stroke-width="2.5"/></g></svg></div>
+<div id="iconCheer" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><rect x="4" y="20" width="9" height="5" fill="#D4A82A" stroke="none" transform="rotate(-25 8 22)"/><rect x="112" y="40" width="9" height="5" fill="#2F5D47" stroke="none" transform="rotate(30 116 42)"/><circle cx="10" cy="44" r="3.5" fill="#8E2F2F" stroke="none"/><circle cx="118" cy="20" r="3.5" fill="#D4A82A" stroke="none"/><rect x="58" y="4" width="9" height="5" fill="#8E2F2F" stroke="none" transform="rotate(15 62 6)"/><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
+
+<script>
+var q = new URLSearchParams(location.search);
+window.CFG = { uuid: q.get('uuid') || '', t: q.get('t') || '', view: q.get('view') || 'pill', tab: q.get('tab') || 'me',
+               loc: q.get('loc') || '', z: q.get('z') || '1', api: q.get('api') || '' };
+(function () {
+  var C = window.CFG;
+  var $ = function (id) { return document.getElementById(id); };
+  document.body.className = C.view === 'full' ? 'full' : 'pill';
+  // Draw at a fixed design size, then scale evenly to fit whatever window Second Life gives us.
+  function fit() {
+    var z = Number(C.z) > 0 ? Number(C.z) : 1;
+    // design sizes match the screen shapes: pill 4:1 (512 x 128), panel 1:2 (512 x 1024)
+    var w = (C.view === 'full' ? 320 : 400) / z, h = (C.view === 'full' ? 640 : 100) / z;
+    var st = $('stage');
+    st.style.width = w + 'px'; st.style.height = h + 'px'; st.style.boxSizing = 'border-box';
+    var k = Math.min(window.innerWidth / w, window.innerHeight / h) || 1;
+    st.style.transform = 'translate(' + (window.innerWidth - w * k) / 2 + 'px,' + (window.innerHeight - h * k) / 2 + 'px) scale(' + k + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if (C.loc) $('loc').textContent = C.loc;
+
+  window.tab = function (n) {
+    $('paneMe').className = 'pane' + (n === 'me' ? ' on' : '');
+    $('paneCampus').className = 'pane' + (n === 'campus' ? ' on' : '');
+    $('tabMe').className = n === 'me' ? 'on' : '';
+    $('tabCampus').className = n === 'campus' ? 'on' : '';
+  };
+  if (C.tab === 'campus') window.tab('campus');
+
+  function fmt(n) { return String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  var last = null, hideTimer = null;
+
+  function toast(gold, title, sub) {
+    $('tIcon').innerHTML = (gold ? $('iconCheer') : $('iconStar')).innerHTML;
+    $('tTitle').textContent = title;
+    $('tSub').textContent = sub;
+    $('toast').className = 'toast show' + (gold ? ' gold' : '');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { $('toast').className = 'toast' + (gold ? ' gold' : ''); }, 7000);
+  }
+
+  function show(d) {
+    if (!d || d.ok === false) return;
+    var name = d.enrolled ? d.name : 'Visitor';
+    var pct = d.nextAt ? Math.max(0, Math.min(100, (d.totalXp - d.floorAt) / (d.nextAt - d.floorAt) * 100)) : 100;
+    $('pName').textContent = name; $('fName').textContent = name;
+    $('pRank').textContent = d.rank + ' · ' + fmt(d.totalXp) + ' XP';
+    $('fRank').textContent = d.rank + ' · ' + fmt(d.totalXp) + (d.nextAt ? ' / ' + fmt(d.nextAt) : '') + ' XP';
+    $('pFill').style.width = pct + '%'; $('fFill').style.width = pct + '%';
+    $('fNext').textContent = d.nextAt ? fmt(d.nextAt - d.totalXp) + ' XP to ' + d.nextRank : 'Highest rank reached';
+    $('pCrest').textContent = fmt(d.crests); $('tCrest').textContent = fmt(d.crests);
+    $('tRp').textContent = fmt(d.rpToday); $('tCap').textContent = '/' + fmt(d.rpCap);
+    $('tCls').textContent = fmt(d.classesTotal);
+    var box = $('recent');
+    if (d.recent && d.recent.length) {
+      box.innerHTML = '';
+      d.recent.forEach(function (r) {
+        var row = document.createElement('div'); row.className = 'row';
+        var a = document.createElement('span'); a.textContent = r.what + (r.where ? ' · ' + r.where : '');
+        var b = document.createElement('b'); b.textContent = '+' + fmt(r.xp);
+        row.appendChild(a); row.appendChild(b); box.appendChild(row);
+      });
+    }
+    if (last && d.totalXp > last.totalXp) {
+      if (d.rank !== last.rank) toast(true, d.rank + '!', 'You reached ' + fmt(d.totalXp) + ' XP. Bramble is very proud.');
+      else { var r0 = (d.recent && d.recent[0]) || {}; toast(false, '+' + fmt(d.totalXp - last.totalXp) + ' XP', (r0.what || '') + (r0.where ? ' · ' + r0.where : '')); }
+    }
+    last = { totalXp: d.totalXp, rank: d.rank };
+  }
+  window.__hud = show;
+
+  function load() {
+    if (window.google && google.script && google.script.run) {
+      google.script.run.withSuccessHandler(show).hudData(C.uuid, C.t);   // page served by Google
+    } else if (C.api) {
+      var s = document.createElement('script');                         // page hosted elsewhere
+      s.src = C.api + '?action=hud&uuid=' + encodeURIComponent(C.uuid) + '&t=' + encodeURIComponent(C.t) + '&callback=__hud&_=' + Date.now();
+      s.onload = s.onerror = function () { s.parentNode && s.parentNode.removeChild(s); };
+      document.head.appendChild(s);
+    }
+  }
+  load();
+  setInterval(load, 30000);
+})();
+</script>
+</body></html>
