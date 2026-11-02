@@ -52,7 +52,7 @@ body.pill .toast .tt{font-size:20px}body.pill .toast .ts{font-size:13px}body.pil
 <div id="pill">
   <div class="face" style="width:58px;height:58px"><svg style="width:50px;height:50px;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"><g stroke="#2A1E14" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 60 L28 10 L58 38 Z" fill="#D9772B"/><path d="M108 60 L100 10 L70 38 Z" fill="#D9772B"/><path d="M30 46 L33 24 L46 37 Z" fill="#2A1E14" stroke="none"/><path d="M98 46 L95 24 L82 37 Z" fill="#2A1E14" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="#D9772B"/><path d="M18 74 Q42 74 54 90 L64 110 L74 90 Q86 74 110 74 Q104 96 64 112 Q24 96 18 74 Z" fill="#FBF3E4" stroke="none"/><path d="M14 66 Q16 32 64 30 Q112 32 114 66 Q110 94 64 112 Q18 94 14 66 Z" fill="none"/><ellipse cx="32" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><ellipse cx="96" cy="82" rx="8" ry="5" fill="#E88C8C" stroke="none" opacity="0.85"/><path d="M36 66 Q44 56 52 66" fill="none" stroke-width="5"/><path d="M76 66 Q84 56 92 66" fill="none" stroke-width="5"/><ellipse cx="64" cy="99" rx="8" ry="5.5" fill="#2A1E14" stroke="none"/><path d="M54 102 Q64 116 74 102 Z" fill="#7A2E2E" stroke-width="3"/><path d="M30 104 Q64 124 98 104 L100 116 Q64 136 28 116 Z" fill="#2F5D47"/><path d="M29 110 Q64 130 99 110" fill="none" stroke="#D4A82A" stroke-width="4"/></g></svg></div>
   <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
-    <p class="serif" id="pName" style="font-size:20px;color:#F3EBD8;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Briarcrest</p>
+    <p class="serif" id="pName" style="font-size:20px;color:#F3EBD8;line-height:1.25;padding-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Briarcrest</p>
     <p id="pRank" style="font-weight:800;font-size:12px;color:#D9BE76">Loading…</p>
     <div class="bar"><div class="fill" id="pFill"></div></div>
   </div>
@@ -136,7 +136,7 @@ window.CFG = { uuid: q.get('uuid') || '', t: q.get('t') || '', view: q.get('view
     $('pRank').textContent = d.rank + ' · ' + fmt(d.totalXp) + ' XP';
     $('fRank').textContent = d.rank + ' · ' + fmt(d.totalXp) + (d.nextAt ? ' / ' + fmt(d.nextAt) : '') + ' XP';
     $('pFill').style.width = pct + '%'; $('fFill').style.width = pct + '%';
-    $('fNext').textContent = d.nextAt ? fmt(d.nextAt - d.totalXp) + ' XP to ' + d.nextRank : 'Highest rank reached';
+    $('fNext').textContent = d.nextLine || (d.nextAt ? fmt(d.nextAt - d.totalXp) + ' XP to ' + d.nextRank : 'Highest rank reached');
     $('pCrest').textContent = fmt(d.crests); $('tCrest').textContent = fmt(d.crests);
     $('tRp').textContent = fmt(d.rpToday); $('tCap').textContent = '/' + fmt(d.rpCap);
     $('tCls').textContent = fmt(d.classesTotal);
